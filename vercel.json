@@ -1,21 +1,23 @@
 {
   "version": 2,
-  "installCommand": "npm --prefix backend install && npm --prefix frontend install",
-  "buildCommand": "npm --prefix frontend run build",
+  "buildCommand": "npm --prefix frontend install && npm --prefix frontend run build",
   "outputDirectory": "frontend/dist",
   "functions": {
     "api/index.mjs": {
       "includeFiles": "backend/**"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.mjs"
+      "src": "/api/(.*)",
+      "dest": "/api/index.mjs"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
