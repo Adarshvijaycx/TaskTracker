@@ -1,4 +1,18 @@
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000/api";
+const getApiBase = () => {
+  if (import.meta.env.VITE_API_BASE) {
+    return import.meta.env.VITE_API_BASE;
+  }
+
+  // Local development backend
+  if (window.location.hostname === "localhost") {
+    return "http://localhost:4000/api";
+  }
+
+  // Vercel multi-service backend route
+  return "/_/backend/api";
+};
+
+const API_BASE = getApiBase();
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("taskflow_token");
