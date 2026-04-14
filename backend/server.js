@@ -14,6 +14,16 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
+app.use(async (req, res, next) => {
+	try {
+		await connectDB();
+		next();
+	} catch (error) {
+		console.error(error.message);
+		return res.status(500).json({ success: false, message: "Database connection failed" });
+	}
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/tasks", taskRoutes);
@@ -29,4 +39,8 @@ const startServer = async () => {
 	});
 };
 
-startServer();
+if (!process.env.VERCEL) {
+	startServer();
+}
+
+export default app;
