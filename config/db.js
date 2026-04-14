@@ -1,0 +1,1 @@
+export { connectDB } from "../backend/config/db.js";
