@@ -28,9 +28,24 @@ const request = async (path, options = {}) => {
     },
   });
 
-  const data = await response.json();
+  const contentType = response.headers.get("content-type") || "";
+  const rawBody = await response.text();
+
+  let data = {};
+  if (rawBody) {
+    if (contentType.includes("application/json")) {
+      try {
+        data = JSON.parse(rawBody);
+      } catch {
+        data = { message: "Received invalid JSON from server." };
+      }
+    } else {
+      data = { message: rawBody };
+    }
+  }
+
   if (!response.ok) {
-    throw new Error(data.message || "Request failed");
+    throw new Error(data.message || `Request failed (${response.status})`);
   }
   return data;
 };
