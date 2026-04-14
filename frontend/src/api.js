@@ -8,8 +8,8 @@ const getApiBase = () => {
     return "http://localhost:4000/api";
   }
 
-  // Vercel multi-service backend route
-  return "/_/backend/api";
+  // Vercel serverless API route
+  return "/api";
 };
 
 const API_BASE = getApiBase();

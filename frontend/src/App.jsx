@@ -5,11 +5,6 @@ import { authApi, taskApi } from "./api";
 const emptyTask = { title: "", description: "", status: "in-progress", priority: "low", dueDate: "", completed: false };
 const FILTERS = ["all", "today", "week", "high", "medium", "low"];
 
-const bootstrapToken = import.meta.env.VITE_AUTH_TOKEN;
-if (bootstrapToken && !localStorage.getItem("taskflow_token")) {
-  localStorage.setItem("taskflow_token", bootstrapToken);
-}
-
 const isAuthed = () => Boolean(localStorage.getItem("taskflow_token"));
 
 const Protected = ({ children }) => {

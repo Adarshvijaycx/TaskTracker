@@ -1,13 +1,5 @@
 {
-  "experimentalServices": {
-    "frontend": {
-      "entrypoint": "frontend",
-      "routePrefix": "/",
-      "framework": "vite"
-    },
-    "backend": {
-      "entrypoint": "backend",
-      "routePrefix": "/_/backend"
-    }
-  }
+  "version": 2,
+  "buildCommand": "npm --prefix backend install && npm --prefix frontend install && npm --prefix frontend run build",
+  "outputDirectory": "frontend/dist"
 }
